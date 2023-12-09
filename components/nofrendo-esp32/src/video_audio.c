@@ -197,23 +197,31 @@ static int set_mode(int width, int height)
    return 0;
 }
 
+
 uint16 myPalette[256];
 
-/* copy nes palette over to hardware */
+unsigned short Convert(unsigned short s) 
+{
+	char right, left;
+	right = s& 0XFF;//低八位
+	left = s >> 8;//高八位  右移8位
+	s = right * 256 + left;
+	return s;
+}
+
 static void set_palette(rgb_t *pal)
 {
 	uint16 c;
 
-   int i;
+	int i;
 
-   for (i = 0; i < 256; i++)
-   {
-      c=(pal[i].b>>3)+((pal[i].g>>2)<<5)+((pal[i].r>>3)<<11);
-      //myPalette[i]=(c>>8)|((c&0xff)<<8);
-      myPalette[i]=c;
-   }
-
+	for (i = 0; i < 256; i++)
+	{
+		c = (pal[i].b >> 3) + ((pal[i].g >> 2) << 5) + ((pal[i].r >> 3) << 11);
+		myPalette[i] = Convert(c);
+	}
 }
+
 
 /* clear all frames to a particular color */
 static void clear(uint8 color)

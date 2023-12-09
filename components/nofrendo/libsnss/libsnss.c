@@ -179,10 +179,10 @@ static SNSS_RETURN_CODE
 SNSS_WriteFileHeader (SNSS_FILE *snssFile)
 {
    unsigned int tempInt;
-   char writeBuffer[8];
+   char writeBuffer[8]={0};
 
    /* always place the SNSS tag in this field */
-   strncpy (&writeBuffer[0], "SNSS", 5);
+   memcpy (writeBuffer, "SNSS", 4);
    tempInt = swap32 (snssFile->headerBlock.numberOfBlocks);
    writeBuffer[4] = ((char *) &tempInt)[0];
    writeBuffer[5] = ((char *) &tempInt)[1];

@@ -50,9 +50,9 @@ static myvar_t *my_create(const char *group, const char *key, const char *value)
    var->less = var->greater = NULL;
    var->group = var->key = var->value = NULL;
 
-   if ((var->group = malloc(strlen(group) + 1))
-       && (var->key = malloc(strlen(key) + 1))
-       && (var->value = malloc(strlen(value) + 1)))
+   if ((var->group = nes_malloc(strlen(group) + 1))
+       && (var->key = nes_malloc(strlen(key) + 1))
+       && (var->value = nes_malloc(strlen(value) + 1)))
    {
       strcpy(var->group, group);
       strcpy(var->key, key);

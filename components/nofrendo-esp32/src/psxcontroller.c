@@ -31,6 +31,7 @@
 
 #define DELAY() asm("nop; nop; nop; nop;nop; nop; nop; nop;nop; nop; nop; nop;nop; nop; nop; nop;")
 
+#define CONFIG_HW_PSX_ENA 0
 
 #if CONFIG_HW_PSX_ENA
 

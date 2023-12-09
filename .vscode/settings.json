@@ -1,5 +1,14 @@
 {
     "files.associations": {
-        "nofrendo.h": "c"
-    }
+        "nofrendo.h": "c",
+        "stdlib.h": "c",
+        "limits.h": "c",
+        "time.h": "c",
+        "memguard.h": "c",
+        "stdbool.h": "c",
+        "version.h": "c",
+        "noftypes.h": "c",
+        "psxcontroller.h": "c"
+    },
+    "idf.adapterTargetName": "esp32s3"
 }

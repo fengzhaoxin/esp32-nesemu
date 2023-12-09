@@ -9,17 +9,36 @@
 #include "nofrendo.h"
 #include "esp_partition.h"
 
+// char *osd_getromdata() {
+// 	char* romdata;
+// 	const esp_partition_t* part;
+// 	spi_flash_mmap_handle_t hrom;
+// 	esp_err_t err;
+// 	nvs_flash_init();
+// 	part = esp_partition_find_first(0x40, 0x01, NULL);
+// 	if (part == NULL) {
+// 		printf("Couldn't find rom part!\n");
+// 	}
+// 	err = esp_partition_mmap(part, 0, 3 * 1024 * 1024, SPI_FLASH_MMAP_DATA, (const void**)&romdata, &hrom);
+// 	if (err != ESP_OK) {
+// 		printf("Couldn't map rom part!\n");
+// 	}
+// 	printf("Initialized. ROM@%p\n", romdata);
+// 	return (char*)romdata;
+// }
+
 char *osd_getromdata() {
-	char* romdata;
 	const esp_partition_t* part;
 	spi_flash_mmap_handle_t hrom;
+	char* romdata = heap_caps_malloc(0x300000, MALLOC_CAP_SPIRAM);
+	// char* romdata = malloc(0x100000);
 	esp_err_t err;
 	nvs_flash_init();
-	part = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_DATA_NVS, NULL);
+	part = esp_partition_find_first(0x40, 0x01, NULL);
 	if (part == NULL) {
 		printf("Couldn't find rom part!\n");
 	}
-	err = esp_partition_mmap(part, 0, 3 * 1024 * 1024, SPI_FLASH_MMAP_DATA, (const void**)&romdata, &hrom);
+	err = esp_partition_read(part, 0, (void*)romdata, 0xcfff);
 	if (err != ESP_OK) {
 		printf("Couldn't map rom part!\n");
 	}
